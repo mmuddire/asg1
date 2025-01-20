@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <title>Assignment 1</title>
+        <script src="asg1.js"></script>
+        <script src="Point.js"></script>
+        <script src="Triangle.js"></script>
+        <script src="Circle.js"></script>
+        <script src="lib/cuon-utils.js"></script>
+        <script src="lib/webgl-utils.js"></script>
+        <script src="lib/webgl-debug.js"></script>    
+    </head>
+    
+    <body onload="main()">
+        <canvas id = "webgl" width="400" height="400">
+        Please use a browser that supports "canvas"
+        </canvas>
+
+        <p id="numdot">  </p>
+
+        <button type="button" id = "clearButton">Clear Canvas</button>
+
+        <br><br>
+        Deafult Colors: 
+        <button type="button" id = "red">Red</button>
+        <button type="button" id = "green">Green</button>
+        <button type="button" id = "blue">Blue</button>
+
+        <br><br>
+        Drawing Mode: 
+        <button type="button" id = "pointButton">Point</button>
+        <button type="button" id = "triButton">Triangle</button>
+        <button type="button" id = "circleButton">Circle</button>
+        
+        <p>Shape Color: </p>
+        Red <input type="range" min="0" max="100" value="100" class="slider" id="redSlide">
+        Green <input type="range" min="0" max="100" value="0" class="slider" id="greenSlide">
+        Blue <input type="range" min="0" max="100" value="0" class="slider" id="blueSlide">
+
+        <br><br>
+        Shape Size: <input type="range" min="5" max="40" value="20" class="slider" id="sizeSlide">
+
+        <br><br>
+        Segment Count (Circle): <input type="range" min="10" max="70" value="30" class="slider" id="segmentSlide">
+        
+
+    </body>
+
+</html>
