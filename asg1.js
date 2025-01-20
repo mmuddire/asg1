@@ -88,6 +88,7 @@ function addActionsForHtmlUI(){
     document.getElementById('redSlide').addEventListener('mouseup', function() {g_selectedColor[0] = this.value/100; });
     document.getElementById('greenSlide').addEventListener('mouseup', function() {g_selectedColor[1] = this.value/100; });
     document.getElementById('blueSlide').addEventListener('mouseup', function() {g_selectedColor[2] = this.value/100; });
+    document.getElementById('alphaSlide').addEventListener('mouseup', function() {g_selectedColor[3] = this.value/100; });
 
     document.getElementById('sizeSlide').addEventListener('mouseup', function() {g_selectedSize = this.value; });
 
