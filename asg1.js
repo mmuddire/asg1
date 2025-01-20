@@ -90,8 +90,62 @@ function addActionsForHtmlUI(){
 
     document.getElementById('segmentSlide').addEventListener('mouseup', function() {g_selectedSegments = this.value; });
 
+    document.getElementById("recreateButton").onclick = function () {
+        recreateDrawing();
+      };
+      
 
 }
+
+function recreateDrawing() {
+    const numTriangles = 25; // Number of triangles to draw
+  
+    // Clear the canvas
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    const cx = 0.0; // Center of the canvas
+    const cy = 0.0;
+    const radius = 0.7; // Radius of the starburst
+
+    for (let i = 0; i < numTriangles; i++) {
+        const angle1 = (2 * Math.PI * i) / numTriangles;
+        const angle2 = (2 * Math.PI * (i + 1)) / numTriangles;
+
+        // Outer points of the triangle (on the circumference)
+        const x1 = cx + radius * Math.cos(angle1);
+        const y1 = cy + radius * Math.sin(angle1);
+        const x2 = cx + radius * Math.cos(angle2);
+        const y2 = cy + radius * Math.sin(angle2);
+
+        // Inner point (near the center)
+        const x3 = cx;
+        const y3 = cy;
+
+        // Define the triangle
+        let triangle = new Float32Array([
+            x1, y1, 0.0, // Outer point 1
+            x2, y2, 0.0, // Outer point 2
+            x3, y3, 0.0, // Center point
+        ]);
+
+        // Generate random shades of purple
+        const red = 0.5 + Math.random() * 0.5;  // Random red between 0.5 and 1.0
+        const blue = 0.5 + Math.random() * 0.5; // Random blue between 0.5 and 1.0
+        const green = Math.random() * 0.2;      // Random green between 0 and 0.2 for purple hue
+        const alpha = 1.0;                      // Fully opaque
+
+        // Set the color
+        gl.uniform4f(u_FragColor, red, green, blue, alpha);
+
+        // Draw the triangle
+        drawTriangle(triangle);
+    }
+}
+
+
+
+
+  
 
 function main() {
     setUpWegGL();
