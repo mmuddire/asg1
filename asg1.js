@@ -65,6 +65,7 @@ function connectVariablesToGLSL(){
 const POINT = 0;
 const TRIANGLE = 1;
 const CIRCLE = 2;
+const ERASER = 3;
 
 let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_selectedSize=5;
@@ -80,7 +81,9 @@ function addActionsForHtmlUI(){
 
     document.getElementById('pointButton').onclick = function() {g_selectedType=POINT};
     document.getElementById('triButton').onclick = function() {g_selectedType=TRIANGLE};
-    document.getElementById('circleButton').onclick = function() {g_selectedType=CIRCLE};    
+    document.getElementById('circleButton').onclick = function() {g_selectedType=CIRCLE};  
+    document.getElementById('eraserButton').onclick = function() {g_selectedType = ERASER;};
+      
 
     document.getElementById('redSlide').addEventListener('mouseup', function() {g_selectedColor[0] = this.value/100; });
     document.getElementById('greenSlide').addEventListener('mouseup', function() {g_selectedColor[1] = this.value/100; });
@@ -172,6 +175,24 @@ var g_shapesList = [];
 
 function click(ev){
     let [x,y] = convertCoordinatedEventToGL(ev);
+
+    canvas.style.cursor = g_selectedType === ERASER ? 'crosshair' : 'default';
+
+
+    if (g_selectedType === ERASER) {
+        // Eraser Mode: Remove shapes near the click position
+        const threshold = 0.05; // Tolerance for removing shapes
+        g_shapesList = g_shapesList.filter(shape => {
+            const dx = shape.position[0] - x;
+            const dy = shape.position[1] - y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            return distance > threshold; // Keep shapes outside the eraser's range
+        });
+
+        renderAllShapes();
+        return;
+    }
 
     let shape; 
     if(g_selectedType==POINT){
